@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('installing dependency') {
+            steps {
+                sh 'npm install'
+                }
+        }
+        stage('Start server') {
+            steps {
+                sh 'npm start'
+            }
+        }
+        }
+    }
