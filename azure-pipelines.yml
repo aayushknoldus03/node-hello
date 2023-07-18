@@ -7,11 +7,11 @@
 trigger:
 - none
 
+
 variables:
-- name: major
-  value: 1
-- name: minor
-  value: 0
+   major: 1
+   minor: 1
+
 pool: ubuntupool
 
 steps:
