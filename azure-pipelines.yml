@@ -22,7 +22,7 @@ steps:
     verbose: true
 - task: CmdLine@2
   inputs:
-    script: 'npm version 1.0.${Build.BuildNumber}'
+    script: 'npm version 1.0.$(Build.BuildId)'
 
 - task: PublishBuildArtifacts@1
   inputs:
