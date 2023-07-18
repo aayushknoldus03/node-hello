@@ -9,31 +9,7 @@ trigger:
 pool: ubuntupool
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSource: 'spec'
-    versionSpec: '10.19.0'
-    checkLatest: true
-
-- task: Npm@1
-  inputs:
-    command: 'install'
-    workingDir: './'
-    verbose: true
-- task: CmdLine@2
-  inputs:
-    script: 'npm version 1.0.$(Build.BuildId)'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-    StoreAsTar: true
-- task: Npm@1
-  inputs:
-    command: 'publish'
-    workingDir: './'
-    verbose: true
-    publishRegistry: 'useFeed'
-    publishFeed: '9d4a9b0f-64ae-4c9d-b784-5cc5500f5db0'
+- script: |
+    npm install
+    npm version 1.0.$(Build.BuildId) --no-git-tag-version && npm publish
+  displayName: 'npm install and build'
