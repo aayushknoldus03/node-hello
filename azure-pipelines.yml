@@ -28,7 +28,7 @@ steps:
     verbose: true
 - task: CmdLine@2
   inputs:
-    script: 'npm version $(MAJOR)$(MINOR).$(Build.BuildId)'
+    script: 'npm version $(MAJOR).$(MINOR).$(Build.BuildId)'
 
 - task: PublishBuildArtifacts@1
   inputs:
