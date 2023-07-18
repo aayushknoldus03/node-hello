@@ -6,11 +6,12 @@
 
 trigger:
 - none
+variables:
+  majorVersion: 1
+  minorVersion: $[counter(variables['majorVersion'], 0)]
+  patchVersion: $[counter(format('{0}.{1}', variables['majorVersion'], variables['minorVersion']), 0)]
+  versionNumber: '$(majorVersion).$(minorVersion).$(patchVersion)'
 
-
-# variables:
-#    major: 1
-#    minor: 1
 
 pool: ubuntupool
 
@@ -26,14 +27,14 @@ steps:
     command: 'install'
     workingDir: './'
     verbose: true
-# - task: CmdLine@2
-#   inputs:
-#     script: 'npm version $(MAJOR).$(MINOR).$(Build.BuildId)'
-    
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     script: 'npm version $(MAJOR).$(MINOR).$(Build.BuildId)'
+
+- task: Bash@3
+  displayName: 'Update Version'
+  inputs:
+      targetType: 'inline'
+      script: |
+          echo "Current Version: $(versionNumber)"
+          npm --no-git-tag-version version $(versionNumber) --allow-same-version
 
 - task: PublishBuildArtifacts@1
   inputs:
